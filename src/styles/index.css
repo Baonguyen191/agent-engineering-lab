@@ -1,0 +1,260 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ design tokens */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0d0f14;
+  --surface: #141821;
+  --surface-2: #1a1f2b;
+  --raised: #212737;
+  --line: #262d3b;
+  --line-strong: #363f52;
+  --fg: #e7eaf0;
+  --muted: #9aa3b5;
+  --subtle: #6b7487;
+  --accent: #8b97ff;
+  --accent-strong: #6574ff;
+  --accent-soft: rgb(124 140 255 / 0.14);
+  --on-accent: #0b0d18;
+  --success: #3ecf8e;
+  --success-soft: rgb(62 207 142 / 0.13);
+  --warning: #f2b450;
+  --warning-soft: rgb(242 180 80 / 0.13);
+  --danger: #f26a7e;
+  --danger-soft: rgb(242 106 126 / 0.13);
+  --code-bg: #0a0c11;
+  --code-fg: #d7dbe5;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --raised: #ffffff;
+  --line: #e2e5eb;
+  --line-strong: #cdd2db;
+  --fg: #141922;
+  --muted: #586174;
+  --subtle: #8a93a5;
+  --accent: #4b57d6;
+  --accent-strong: #3c47c2;
+  --accent-soft: rgb(75 87 214 / 0.1);
+  --on-accent: #ffffff;
+  --success: #138a5a;
+  --success-soft: rgb(19 138 90 / 0.1);
+  --warning: #a8670c;
+  --warning-soft: rgb(168 103 12 / 0.1);
+  --danger: #c93a52;
+  --danger-soft: rgb(201 58 82 / 0.09);
+  --code-bg: #10131a;
+  --code-fg: #d7dbe5;
+  --shadow: 0 1px 2px rgb(20 25 34 / 0.06), 0 8px 24px rgb(20 25 34 / 0.06);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-code: var(--code-bg);
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-panel: var(--shadow);
+}
+
+/* ------------------------------------------------------------------ base */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ lesson prose */
+.prose-lesson {
+  color: var(--fg);
+  max-width: 72ch;
+}
+.prose-lesson > * + * {
+  margin-top: 1rem;
+}
+.prose-lesson h2 {
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin-top: 2.25rem;
+  padding-top: 0.25rem;
+}
+.prose-lesson h3 {
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin-top: 1.5rem;
+}
+.prose-lesson p,
+.prose-lesson li {
+  color: color-mix(in oklab, var(--fg) 90%, var(--muted));
+}
+.prose-lesson strong {
+  color: var(--fg);
+  font-weight: 650;
+}
+.prose-lesson a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+.prose-lesson ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-lesson ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.prose-lesson li + li {
+  margin-top: 0.35rem;
+}
+.prose-lesson :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0.05em 0.35em;
+}
+.prose-lesson blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+}
+.prose-lesson blockquote p {
+  color: var(--fg);
+}
+.prose-lesson table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.prose-lesson .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.prose-lesson th {
+  text-align: left;
+  font-weight: 600;
+  background: var(--surface-2);
+  color: var(--fg);
+}
+.prose-lesson th,
+.prose-lesson td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.prose-lesson tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ------------------------------------------------------------------ syntax highlighting (highlight.js classes) */
+.hljs {
+  color: var(--code-fg);
+}
+.hljs-keyword,
+.hljs-built_in,
+.hljs-literal {
+  color: #c792ea;
+}
+.hljs-string,
+.hljs-regexp {
+  color: #a5d6a7;
+}
+.hljs-number {
+  color: #f7a76c;
+}
+.hljs-comment {
+  color: #6b7487;
+  font-style: italic;
+}
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: #82aaff;
+}
+.hljs-params,
+.hljs-variable {
+  color: #d7dbe5;
+}
+.hljs-meta,
+.hljs-decorator {
+  color: #ffcb6b;
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-property {
+  color: #89ddff;
+}
+.hljs-type {
+  color: #ffcb6b;
+}
+
+/* CodeMirror container sizing */
+.cm-editor {
+  height: 100%;
+  font-size: 13.5px;
+}
+.cm-editor .cm-scroller {
+  font-family: var(--font-mono);
+}

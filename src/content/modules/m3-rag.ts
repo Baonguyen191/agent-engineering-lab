@@ -1,0 +1,170 @@
+import type { LessonMeta } from '../types'
+
+const REPO = { label: 'Repo khóa học: RAG-Tutorials', url: 'https://github.com/krishnaik06/RAG-Tutorials' }
+
+export const m3Lessons: LessonMeta[] = [
+  {
+    id: 'rag-intro',
+    title: 'RAG là gì và vì sao cần',
+    summary: 'Giới hạn của LLM, kiến trúc RAG gồm ingestion pipeline và retrieval pipeline.',
+    source: 'video',
+    video: { start: 18149, end: 19230, precision: 'transcript' },
+    studyMinutes: 20,
+    objectives: [
+      'Giải thích vì sao LLM cần tri thức bên ngoài (dữ liệu riêng, dữ liệu mới, hallucination).',
+      'Vẽ hai pipeline của RAG: ingestion và retrieval + generation.',
+      'So sánh RAG với fine-tuning và nhồi toàn bộ tài liệu vào prompt.',
+    ],
+    tags: ['RAG', 'retrieval-augmented generation', 'hallucination', 'knowledge base', 'fine-tuning'],
+    checklist: [
+      'Vẽ được kiến trúc RAG từ trí nhớ.',
+      'Nêu 3 lý do dùng RAG.',
+      'Biết khi nào fine-tuning hợp hơn RAG.',
+    ],
+    references: [
+      REPO,
+      { label: 'LangChain: Retrieval', url: 'https://docs.langchain.com/oss/python/langchain/retrieval' },
+    ],
+  },
+  {
+    id: 'rag-ingestion',
+    title: 'Ingestion: Document, loaders & chunking',
+    summary:
+      'Cấu trúc `Document`, TextLoader / DirectoryLoader / PDF loader, metadata, `RecursiveCharacterTextSplitter`.',
+    source: 'video',
+    video: { start: 19230, end: 21810, precision: 'transcript' },
+    studyMinutes: 35,
+    objectives: [
+      'Mô tả `Document(page_content, metadata)` và vì sao metadata quan trọng.',
+      'Load file text, thư mục và PDF thành Document.',
+      'Chọn `chunk_size` / `chunk_overlap` hợp lý và hiểu cách splitter đệ quy hoạt động.',
+    ],
+    tags: [
+      'Document',
+      'page_content',
+      'metadata',
+      'TextLoader',
+      'DirectoryLoader',
+      'PyPDFLoader',
+      'PyMuPDF',
+      'chunking',
+      'RecursiveCharacterTextSplitter',
+      'chunk_overlap',
+    ],
+    checklist: [
+      'Load được thư mục PDF kèm metadata nguồn.',
+      'Giải thích tác dụng của overlap.',
+      'Biết dấu hiệu chunk quá to / quá nhỏ.',
+    ],
+    exercises: ['rag-chunking'],
+    references: [
+      REPO,
+      {
+        label: 'LangChain text splitters',
+        url: 'https://docs.langchain.com/oss/python/integrations/splitters',
+      },
+    ],
+  },
+  {
+    id: 'rag-embeddings-retrieval',
+    title: 'Embeddings, vector store & retriever',
+    summary: 'Sentence-transformers (384 chiều), ChromaDB, similarity search, ngưỡng điểm.',
+    source: 'video',
+    video: { start: 21810, end: 23700, precision: 'transcript' },
+    studyMinutes: 35,
+    objectives: [
+      'Giải thích embedding và cosine similarity.',
+      'Lưu chunk + embedding + metadata vào ChromaDB.',
+      'Viết retriever trả top-k có ngưỡng điểm và metadata filter.',
+    ],
+    tags: [
+      'embedding',
+      'sentence-transformers',
+      'all-MiniLM-L6-v2',
+      'vector store',
+      'ChromaDB',
+      'cosine similarity',
+      'top-k',
+      'metadata filtering',
+    ],
+    checklist: [
+      'Biết model embedding phải giống nhau lúc index và lúc query.',
+      'Đặt được ngưỡng điểm.',
+      'Dùng metadata filter.',
+    ],
+    exercises: ['rag-mini'],
+    references: [
+      REPO,
+      { label: 'Chroma docs', url: 'https://docs.trychroma.com/' },
+      { label: 'Sentence Transformers', url: 'https://www.sbert.net/' },
+    ],
+  },
+  {
+    id: 'rag-generation',
+    title: 'Generation: pipeline hoàn chỉnh, trích dẫn & code module hóa',
+    summary:
+      'Ghép context vào prompt, trả lời có nguồn và confidence, từ chối khi thiếu bằng chứng, tổ chức code thành `src/`.',
+    source: 'video',
+    video: { start: 23700, end: 25843, precision: 'transcript' },
+    studyMinutes: 35,
+    objectives: [
+      'Viết prompt RAG buộc model chỉ dùng context.',
+      'Trả lời kèm citation và xử lý trường hợp không tìm thấy.',
+      'Tổ chức code RAG thành module: data_loader, embedding, vectorstore, search.',
+    ],
+    tags: [
+      'RAG pipeline',
+      'prompt',
+      'citation',
+      'grounding',
+      'confidence',
+      'modular',
+      'FAISS',
+      'data_loader',
+    ],
+    checklist: [
+      'Prompt có chỉ dẫn "không biết thì nói không biết".',
+      'Câu trả lời có nguồn.',
+      'Code ingestion tách khỏi code truy vấn.',
+    ],
+    exercises: ['rag-mini'],
+    references: [REPO],
+  },
+  {
+    id: 'rag-advanced',
+    title: 'RAG nâng cao: hybrid, reranking, query transformation, đánh giá retrieval',
+    summary: 'Các kỹ thuật cải thiện chất lượng truy xuất khi RAG cơ bản chưa đủ.',
+    source: 'supplement',
+    studyMinutes: 35,
+    objectives: [
+      'Kết hợp BM25 và vector search (hybrid) bằng reciprocal rank fusion.',
+      'Dùng reranker cross-encoder cho top-k.',
+      'Áp dụng query rewriting, multi-query, HyDE.',
+      'Đo recall@k và MRR cho retriever.',
+    ],
+    tags: [
+      'hybrid retrieval',
+      'BM25',
+      'reciprocal rank fusion',
+      'reranking',
+      'cross-encoder',
+      'query transformation',
+      'HyDE',
+      'multi-query',
+      'recall@k',
+      'MRR',
+    ],
+    checklist: [
+      'Giải thích khi nào keyword search thắng vector search.',
+      'Biết reranker đặt ở đâu trong pipeline.',
+      'Tính được recall@k.',
+    ],
+    exercises: ['rag-mini'],
+    references: [
+      {
+        label: 'LangChain: Retrievers',
+        url: 'https://docs.langchain.com/oss/python/integrations/retrievers',
+      },
+    ],
+  },
+]
