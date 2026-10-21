@@ -7,6 +7,14 @@ dự án Travel Planning Agent 10 giai đoạn.
 
 Giao diện tiếng Việt, code và thuật ngữ tiếng Anh.
 
+**Bản chạy trực tuyến:** https://baonguyen191.github.io/agent-engineering-lab/
+
+## Deploy
+
+Mỗi lần push lên `main`, workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) chạy typecheck,
+lint, unit test, kiểm chứng bài tập Python, build với `BASE_PATH=/<tên-repo>/` rồi đăng lên GitHub Pages.
+`404.html` là bản sao của `index.html` để các đường dẫn như `/learn/lc-intro` mở thẳng được.
+
 ## Chạy dự án
 
 Yêu cầu: Node.js 20+ (đã thử với Node 24), Python 3.11+ (chỉ để chạy script kiểm chứng bài tập).
